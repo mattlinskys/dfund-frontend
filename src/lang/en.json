@@ -1,0 +1,11 @@
+{
+  "common.address": "Address",
+  "common.balance": "Balance",
+  "common.copy": "Copy",
+  "common.disconnect": "Disconnect",
+  "common.logOut": "Log out",
+
+  "wallet.title": "Wallet",
+
+  "profile.title": "Profile"
+}
