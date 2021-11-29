@@ -3,7 +3,7 @@ import { AddressZero } from "@ethersproject/constants";
 import { factory, profile } from "app/abis";
 import { Profile } from "types/profile";
 
-const useProfile: () => Profile | undefined = () => {
+const useProfile = (): Profile | undefined => {
   const { account } = useEthers();
   const [address] =
     useContractCall(

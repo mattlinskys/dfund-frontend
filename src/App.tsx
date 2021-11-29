@@ -7,12 +7,14 @@ import ProfileProvider from "providers/ProfileProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import messagesEn from "lang/en.json";
+import { HOME_PATH, PROJECT_PATH } from "constants/routes";
 
 import Home from "pages/Home";
 import Project from "pages/Project";
 
 import ProfileDialogProvider from "providers/ProfileDialogProvider";
 import WalletDialogProvider from "providers/WalletDialogProvider";
+import WrongChainDialogProvider from "providers/WrongChainDialogProvider";
 
 const App = () => (
   <IntlProvider locale="en" messages={messagesEn}>
@@ -21,12 +23,13 @@ const App = () => (
         <ChakraProvider theme={theme}>
           <ProfileProvider>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/project/:slug" element={<Project />} />
+              <Route path={HOME_PATH} element={<Home />} />
+              <Route path={PROJECT_PATH} element={<Project />} />
             </Routes>
 
             <WalletDialogProvider />
             <ProfileDialogProvider />
+            <WrongChainDialogProvider />
           </ProfileProvider>
         </ChakraProvider>
       </DAppProvider>

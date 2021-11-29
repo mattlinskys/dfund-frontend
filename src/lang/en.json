@@ -7,5 +7,11 @@
 
   "wallet.title": "Wallet",
 
-  "profile.title": "Profile"
+  "profile.title": "Profile",
+
+  "wrongChain.title": "Wrong network",
+  "wrongChain.description": "You're connected to the wrong network, use information provided below to connect to the {name} network:",
+  "wrongChain.id": "Chain id",
+  "wrongChain.name": "Chain name",
+  "wrongChain.addRequest": "Add Chain"
 }

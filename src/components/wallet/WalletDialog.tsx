@@ -15,12 +15,13 @@ import { Box, IconButton, Tooltip, VStack } from "@chakra-ui/react";
 import { CopyIcon } from "@chakra-ui/icons";
 import { FUND_TOKEN_SYMBOL } from "constants/symbols";
 import copy from "copy-to-clipboard";
+import type { BigNumber } from "@ethersproject/bignumber";
 
 export interface WalletDialogProps {
   isOpen: boolean;
   account?: {
     address: string;
-    balance: string;
+    balance: BigNumber;
   };
   onDisconnect: () => void;
   onClose: () => void;
@@ -75,7 +76,7 @@ const WalletDialog: React.FC<WalletDialogProps> = ({
                 <FormattedMessage id="common.balance" />
               </Text>
               <Text color="gray.500">
-                {account?.balance} {FUND_TOKEN_SYMBOL}
+                {account?.balance.toString()} {FUND_TOKEN_SYMBOL}
               </Text>
             </Box>
           </VStack>
