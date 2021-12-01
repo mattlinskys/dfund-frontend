@@ -1,13 +1,13 @@
-import type { Interface } from "@ethersproject/abi";
 import type { ContractCall } from "@usedapp/core";
+import { customizable } from "app/abis";
+import { utils } from "ethers";
 
 export const getCustomKeyCallArgs = (
-  abi: Interface,
   address: string,
   key: string
 ): ContractCall => ({
-  abi,
+  abi: customizable,
   address,
   method: "customKeys",
-  args: [key],
+  args: [utils.keccak256(utils.toUtf8Bytes(key))],
 });

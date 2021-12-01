@@ -1,6 +1,6 @@
 import { useContractCall, useContractCalls, useEthers } from "@usedapp/core";
 import { factory, project } from "app/abis";
-import { AddressZero } from "@ethersproject/constants";
+import { constants } from "ethers";
 import { Project } from "types/project";
 import { getCustomKeyCallArgs } from "utils/contractsUtils";
 
@@ -18,7 +18,7 @@ const useProject = (slug?: string): Project | undefined => {
     ) ?? [];
 
   const [nameRes, descriptionRes] = (useContractCalls(
-    address && address !== AddressZero
+    address && address !== constants.AddressZero
       ? [
           {
             abi: project,
@@ -26,7 +26,7 @@ const useProject = (slug?: string): Project | undefined => {
             method: "name",
             args: [],
           },
-          getCustomKeyCallArgs(project, address, "description"),
+          getCustomKeyCallArgs(address, "description"),
         ]
       : []
   ) ?? []) as (undefined[] | string[])[];
@@ -34,7 +34,9 @@ const useProject = (slug?: string): Project | undefined => {
   const [name] = nameRes ?? [];
   const [description] = descriptionRes ?? [];
 
-  return slug && name ? { slug, name, description } : undefined;
+  return address && slug && name
+    ? { address, slug, name, description }
+    : undefined;
 };
 
 export default useProject;

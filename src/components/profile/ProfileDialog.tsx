@@ -46,6 +46,9 @@ const ProfileDialog: React.FC<ProfileDialogProps> = ({
         <Button onClick={onLogOut}>
           <FormattedMessage id="common.logOut" />
         </Button>
+        <Button ml={2} onClick={onLogOut}>
+          <FormattedMessage id="common.edit" />
+        </Button>
       </ModalFooter>
     </ModalContent>
   </Modal>

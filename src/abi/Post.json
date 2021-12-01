@@ -1,1 +1,34 @@
-[{"inputs":[{"internalType":"string","name":"_content","type":"string"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"comments","outputs":[{"internalType":"uint256","name":"time","type":"uint256"},{"internalType":"string","name":"content","type":"string"},{"internalType":"uint256","name":"parentIndex","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"content","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"time","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
+[
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_content", "type": "string" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "comments",
+    "outputs": [
+      { "internalType": "uint256", "name": "time", "type": "uint256" },
+      { "internalType": "string", "name": "content", "type": "string" },
+      { "internalType": "uint256", "name": "parentIndex", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "content",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "time",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

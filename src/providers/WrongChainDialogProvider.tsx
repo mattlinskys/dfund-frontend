@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useEthers } from "@usedapp/core";
+import { utils } from "ethers";
 import { CHAIN } from "app/chain";
 import WrongChainDialog from "components/base/WrongChainDialog";
 import useWallet from "hooks/useWallet";
@@ -14,7 +15,7 @@ const WrongChainDialogProvider: React.FC = () => {
         method: "wallet_switchEthereumChain",
         params: [
           {
-            chainId: `0x${CHAIN.id.toString(16)}`,
+            chainId: utils.hexlify(CHAIN.id),
           },
         ],
       });
@@ -26,7 +27,7 @@ const WrongChainDialogProvider: React.FC = () => {
       method: "wallet_addEthereumChain",
       params: [
         {
-          chainId: `0x${CHAIN.id.toString(16)}`,
+          chainId: utils.hexlify(CHAIN.id),
           chainName: CHAIN.name,
           rpcUrls: CHAIN.rpcUrls,
           blockExplorerUrls: CHAIN.blockExplorerUrls,
