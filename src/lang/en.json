@@ -10,6 +10,8 @@
   "common.avatarUrl": "Avatar URL",
   "common.description": "Description",
 
+  "erros.default": "Something went wrong, please try again",
+
   "wallet.title": "Wallet",
 
   "profile.title": "Profile",

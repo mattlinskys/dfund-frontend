@@ -1,6 +1,7 @@
 import { useContractCall, useContractCalls, useEthers } from "@usedapp/core";
 import { factory, project } from "app/abis";
 import { constants } from "ethers";
+import { useMemo } from "react";
 import { Project } from "types/project";
 import { getCustomKeyCallArgs } from "utils/contractsUtils";
 
@@ -16,26 +17,29 @@ const useProject = (slug?: string): Project | undefined => {
           args: [slug],
         }
     ) ?? [];
+  const contractCalls = useMemo(
+    () => [
+      {
+        abi: project,
+        address,
+        method: "name",
+        args: [],
+      },
+      getCustomKeyCallArgs(address, "description"),
+      getCustomKeyCallArgs(address, "avatarUri"),
+      getCustomKeyCallArgs(address, "bannerUri"),
+    ],
+    [address]
+  );
 
-  const [nameRes, descriptionRes] = (useContractCalls(
-    address && address !== constants.AddressZero
-      ? [
-          {
-            abi: project,
-            address,
-            method: "name",
-            args: [],
-          },
-          getCustomKeyCallArgs(address, "description"),
-        ]
-      : []
-  ) ?? []) as (undefined[] | string[])[];
-
-  const [name] = nameRes ?? [];
-  const [description] = descriptionRes ?? [];
+  const [name, description, avatarUri, bannerUri] = (
+    (useContractCalls(
+      address && address !== constants.AddressZero ? contractCalls : []
+    ) ?? []) as (undefined[] | string[])[]
+  ).flat();
 
   return address && slug && name
-    ? { address, slug, name, description }
+    ? { address, slug, name, description, avatarUri, bannerUri }
     : undefined;
 };
 

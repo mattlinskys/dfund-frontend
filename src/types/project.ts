@@ -3,4 +3,6 @@ export interface Project {
   slug: string;
   name: string;
   description?: string;
+  avatarUri?: string;
+  bannerUri?: string;
 }

@@ -64,7 +64,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
                   <FormLabel>
                     <FormattedMessage id="common.name" />
                   </FormLabel>
-                  <Input {...field} />
+                  <Input autoFocus {...field} />
                   <FormErrorMessage>
                     {meta.error &&
                       formatMessage({

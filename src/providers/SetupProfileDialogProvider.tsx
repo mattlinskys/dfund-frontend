@@ -8,8 +8,12 @@ import SetupProfileDialog, {
 import { Contract, utils } from "ethers";
 import { factory } from "app/abis";
 import { useContractFunction } from "@usedapp/core";
+import { useToast } from "@chakra-ui/react";
+import { useIntl } from "react-intl";
 
 const SetupProfileDialogProvider: React.FC = () => {
+  const toast = useToast();
+  const intl = useIntl();
   const { hasProfile, isLoaded, setContractAddress } =
     useContext(ProfileContext)!;
   const { isVisible, onClose } = useHashDisclosure(
@@ -42,6 +46,18 @@ const SetupProfileDialogProvider: React.FC = () => {
       setContractAddress(event.args[0]);
     }
   }, [state.status, events?.length]);
+
+  useEffect(() => {
+    if (state.status === "Exception" || state.status === "Fail") {
+      toast({
+        title:
+          state.errorMessage || intl.formatMessage({ id: "erros.default" }),
+        status: "error",
+        duration: 7500,
+        isClosable: true,
+      });
+    }
+  }, [state]);
 
   // const isSubmitting =
   //   state.status === "None" ||

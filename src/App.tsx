@@ -8,6 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import messagesEn from "lang/en.json";
 import { HOME_PATH, PROJECT_PATH } from "constants/routes";
+import Sidebar from "components/base/Sidebar";
+import Main from "components/base/Main";
 
 import Home from "pages/Home";
 import Project from "pages/Project";
@@ -23,10 +25,14 @@ const App = () => (
       <DAppProvider config={config}>
         <ChakraProvider theme={theme}>
           <ProfileProvider>
-            <Routes>
-              <Route path={HOME_PATH} element={<Home />} />
-              <Route path={PROJECT_PATH} element={<Project />} />
-            </Routes>
+            <Sidebar />
+
+            <Main>
+              <Routes>
+                <Route path={HOME_PATH} element={<Home />} />
+                <Route path={PROJECT_PATH} element={<Project />} />
+              </Routes>
+            </Main>
 
             <WalletDialogProvider />
             <ProfileDialogProvider />

@@ -22,24 +22,22 @@ const ProfileProvider: React.FC = ({ children }) => {
     setContractAddress(profileAddress);
   }, [profileAddress]);
 
-  const [nameRes, avatarUriRes, descriptionRes] = (useContractCalls(
-    contractAddress && contractAddress !== constants.AddressZero
-      ? [
-          {
-            abi: profileAbi,
-            address: contractAddress,
-            method: "name",
-            args: [],
-          },
-          getCustomKeyCallArgs(contractAddress, "avatarUri"),
-          getCustomKeyCallArgs(contractAddress, "description"),
-        ]
-      : []
-  ) ?? []) as (undefined[] | string[])[];
-
-  const [name] = nameRes ?? [];
-  const [avatarUri] = avatarUriRes ?? [];
-  const [description] = descriptionRes ?? [];
+  const [name, avatarUri, description] = (
+    (useContractCalls(
+      contractAddress && contractAddress !== constants.AddressZero
+        ? [
+            {
+              abi: profileAbi,
+              address: contractAddress,
+              method: "name",
+              args: [],
+            },
+            getCustomKeyCallArgs(contractAddress, "avatarUri"),
+            getCustomKeyCallArgs(contractAddress, "description"),
+          ]
+        : []
+    ) ?? []) as (undefined[] | string[])[]
+  ).flat();
 
   const profile = useMemo(
     () =>
