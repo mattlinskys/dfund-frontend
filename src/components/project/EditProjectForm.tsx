@@ -20,40 +20,70 @@ import { Formik, Form, Field, FieldProps } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
 import * as Yup from "yup";
 
-interface EditProfileFormValues {
+interface EditProjectFormValues {
+  slug: string;
   name: string;
+  bannerUri: string;
   avatarUri: string;
   description: string;
 }
 
-export interface EditProfileFormProps {
-  defaultValues?: EditProfileFormValues;
-  onSubmit: (values: EditProfileFormValues) => Promise<void>;
-  // isSubmitting?: boolean;
+export interface EditProjectFormProps {
+  defaultValues?: EditProjectFormValues;
+  onSubmit: (values: EditProjectFormValues) => Promise<void>;
 }
 
-const EditProfileForm: React.FC<EditProfileFormProps> = ({
+const EditProjectForm: React.FC<EditProjectFormProps> = ({
   defaultValues,
   onSubmit,
-  // isSubmitting,
 }) => {
+  // TODO: SlugInput (Check uniqueness)
   const { formatMessage } = useIntl();
+  const isNew = !defaultValues;
 
   return (
     <Formik
       initialValues={
-        defaultValues || { name: "", avatarUri: "", description: "" }
+        defaultValues || {
+          slug: "",
+          name: "",
+          avatarUri: "",
+          bannerUri: "",
+          description: "",
+        }
       }
       onSubmit={async (values) => {
         await onSubmit(values);
       }}
       validationSchema={Yup.object().shape({
+        slug: Yup.string().required("required"),
         name: Yup.string().required("required"),
       })}
     >
       {({ isSubmitting }) => (
         <Form noValidate>
           <VStack spacing={4}>
+            <Field name="slug">
+              {({ field, meta }: FieldProps) => (
+                <FormControl
+                  id="slug"
+                  isRequired
+                  isInvalid={!!(meta.error && meta.touched)}
+                >
+                  <FormLabel>
+                    <FormattedMessage id="common.slug" />
+                  </FormLabel>
+                  <Input autoFocus={isNew} isDisabled={!isNew} {...field} />
+                  <FormErrorMessage>
+                    {meta.error &&
+                      formatMessage({
+                        id: `validation.slug:${meta.error}`,
+                      })}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+
             <Field name="name">
               {({ field, meta }: FieldProps) => (
                 <FormControl
@@ -142,4 +172,4 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
   );
 };
 
-export default EditProfileForm;
+export default EditProjectForm;

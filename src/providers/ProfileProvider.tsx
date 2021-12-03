@@ -3,7 +3,8 @@ import ProfileContext, { ProfileContextValue } from "contexts/ProfileContext";
 import { useEthers, useContractCall, useContractCalls } from "@usedapp/core";
 import { factory, profile as profileAbi } from "app/abis";
 import { getCustomKeyCallArgs } from "utils/contractsUtils";
-import { constants, utils } from "ethers";
+import { constants } from "ethers";
+import { bytes32ToString } from "utils/ethersUtils";
 
 const ProfileProvider: React.FC = ({ children }) => {
   const { account } = useEthers();
@@ -42,7 +43,7 @@ const ProfileProvider: React.FC = ({ children }) => {
   const profile = useMemo(
     () =>
       name !== undefined
-        ? { name: utils.toUtf8String(name), avatarUri, description }
+        ? { name: bytes32ToString(name), avatarUri, description }
         : undefined,
     [name, avatarUri, description]
   );
@@ -54,6 +55,7 @@ const ProfileProvider: React.FC = ({ children }) => {
     () =>
       ({
         profile,
+        isAuthenticated: !!profile,
         hasProfile,
         isLoaded,
         setContractAddress,

@@ -4,8 +4,11 @@ import { constants } from "ethers";
 import { useMemo } from "react";
 import { Project } from "types/project";
 import { getCustomKeyCallArgs } from "utils/contractsUtils";
+import { bytes32ToString, stringToBytes32 } from "utils/ethersUtils";
 
-const useProject = (slug?: string): Project | undefined => {
+const useProject = (
+  slug?: string
+): { project: Project | undefined; notFound: boolean } => {
   const { account } = useEthers();
   const [address] =
     useContractCall(
@@ -14,7 +17,7 @@ const useProject = (slug?: string): Project | undefined => {
           abi: factory,
           address: process.env.REACT_APP_FACTORY_ADDRESS,
           method: "projects",
-          args: [slug],
+          args: [stringToBytes32(slug)],
         }
     ) ?? [];
   const contractCalls = useMemo(
@@ -37,10 +40,22 @@ const useProject = (slug?: string): Project | undefined => {
       address && address !== constants.AddressZero ? contractCalls : []
     ) ?? []) as (undefined[] | string[])[]
   ).flat();
+  const notFound = address === constants.AddressZero;
 
-  return address && slug && name
-    ? { address, slug, name, description, avatarUri, bannerUri }
-    : undefined;
+  return {
+    project:
+      address && slug && name
+        ? {
+            address,
+            slug,
+            name: bytes32ToString(name),
+            description,
+            avatarUri,
+            bannerUri,
+          }
+        : undefined,
+    notFound,
+  };
 };
 
 export default useProject;

@@ -1,15 +1,20 @@
-import React, { useMemo } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import useProject from "hooks/useProject";
 import ProjectContext, { ProjectContextValue } from "contexts/ProjectContext";
 import PostList from "components/project/PostList";
 import Banner from "components/project/Banner";
-import { Box, SkeletonCircle, Image } from "@chakra-ui/react";
+import { Box, SkeletonCircle, Image, useToast } from "@chakra-ui/react";
+import { HOME_PATH } from "constants/routes";
+import { useIntl } from "react-intl";
 
 const Project: React.FC = () => {
   const { slug } = useParams() as { slug: string };
-  const project = useProject(slug);
+  const { project, notFound } = useProject(slug);
   const isBannerVisible = !project || !!project.bannerUri;
+  const navigate = useNavigate();
+  const toast = useToast();
+  const intl = useIntl();
 
   const providerValue = useMemo(
     () =>
@@ -18,6 +23,18 @@ const Project: React.FC = () => {
       } as ProjectContextValue),
     [project]
   );
+
+  useEffect(() => {
+    if (notFound) {
+      navigate(HOME_PATH, { replace: true });
+      toast({
+        title: intl.formatMessage({ id: "erros.projectNotFound" }),
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  }, [notFound]);
 
   return (
     <ProjectContext.Provider value={providerValue}>

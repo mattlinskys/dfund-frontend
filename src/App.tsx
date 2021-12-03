@@ -18,6 +18,7 @@ import ProfileDialogProvider from "providers/ProfileDialogProvider";
 import WalletDialogProvider from "providers/WalletDialogProvider";
 import WrongChainDialogProvider from "providers/WrongChainDialogProvider";
 import SetupProfileDialogProvider from "providers/SetupProfileDialogProvider";
+import CreateProjectDialogProvider from "providers/CreateProjectDialogProvider";
 
 const App = () => (
   <IntlProvider locale="en" messages={messagesEn}>
@@ -37,6 +38,7 @@ const App = () => (
             <WalletDialogProvider />
             <ProfileDialogProvider />
             <SetupProfileDialogProvider />
+            <CreateProjectDialogProvider />
             <WrongChainDialogProvider />
           </ProfileProvider>
         </ChakraProvider>

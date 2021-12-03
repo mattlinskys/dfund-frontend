@@ -7,21 +7,26 @@
   "common.save": "Save",
   "common.edit": "Edit",
   "common.name": "Name",
+  "common.slug": "Slug",
   "common.avatarUrl": "Avatar URL",
   "common.description": "Description",
 
   "erros.default": "Something went wrong, please try again",
+  "erros.projectNotFound": "Project not found",
+
+  "validation.name:required": "Name is required",
+  "validation.slug:required": "Slug is required",
 
   "wallet.title": "Wallet",
 
   "profile.title": "Profile",
-
   "profile.setup.title": "Setup profile",
 
   "profile.edit.form.avatar.popover.title": "Why not file upload?",
   "profile.edit.form.avatar.popover.description": "Storing file on blockchain is not cheap operation so believe us, better go with the URL",
   "profile.edit.form.description.placeholder": "You may want to describe yourself a little bit",
-  "profile.edit.form.validation.name:required": "Name is required",
+
+  "project.create.title": "Create project",
 
   "wrongChain.title": "Wrong network",
   "wrongChain.description": "You're connected to the wrong network, use information provided below to connect to the {name} network:",

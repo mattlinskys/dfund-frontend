@@ -1,38 +1,39 @@
 import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import ProfileContext from "contexts/ProfileContext";
-import { SETUP_PROFILE_HASH } from "constants/hashes";
+import { CREATE_PROJECT_HASH } from "constants/hashes";
 import useHashDisclosure from "hooks/useHashDisclosure";
-import SetupProfileDialog, {
-  SetupProfileDialogProps,
-} from "components/profile/SetupProfileDialog";
+import CreateProjectDialog, {
+  CreateProjectDialogProps,
+} from "components/project/CreateProjectDialog";
 import { Contract } from "ethers";
 import { factory } from "app/abis";
 import { useContractFunction } from "@usedapp/core";
-import { stringToBytes32 } from "utils/ethersUtils";
+import { bytes32ToString, stringToBytes32 } from "utils/ethersUtils";
 import useContractFunctionErrorToast from "hooks/useContractFunctionErrorToast";
+import { useNavigate } from "react-router";
+import { getProjectPath } from "utils/routesUtils";
 
-const SetupProfileDialogProvider: React.FC = () => {
-  const { hasProfile, isLoaded, setContractAddress } =
-    useContext(ProfileContext)!;
+const CreateProjectDialogProvider: React.FC = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useContext(ProfileContext)!;
   const { isVisible, onClose } = useHashDisclosure(
-    SETUP_PROFILE_HASH,
-    isLoaded && !hasProfile
+    CREATE_PROJECT_HASH,
+    isAuthenticated
   );
-
   const factoryContract = useMemo(
     () => new Contract(process.env.REACT_APP_FACTORY_ADDRESS, factory),
     []
   );
   const { state, send, events } = useContractFunction(
     factoryContract,
-    "createProfile"
+    "createProject"
   );
   useContractFunctionErrorToast(state);
 
-  const handleSubmit = useCallback<SetupProfileDialogProps["onSubmit"]>(
+  const handleSubmit = useCallback<CreateProjectDialogProps["onSubmit"]>(
     async (values) => {
       try {
-        await send(stringToBytes32(values.name));
+        await send(stringToBytes32(values.slug), stringToBytes32(values.name));
       } catch (err) {
         console.error(err);
       }
@@ -43,22 +44,17 @@ const SetupProfileDialogProvider: React.FC = () => {
   useEffect(() => {
     const [event] = events ?? [];
     if (state.status === "Success" && event) {
-      setContractAddress(event.args.account);
+      navigate(getProjectPath(bytes32ToString(event.args.slug)));
     }
   }, [state.status, events?.length]);
 
-  // const isSubmitting =
-  //   state.status === "None" ||
-  //   (state.status === "Success" && (!events || events.length === 0));
-
   return (
-    <SetupProfileDialog
+    <CreateProjectDialog
       isOpen={isVisible}
       onClose={onClose}
       onSubmit={handleSubmit}
-      // isSubmitting={isSubmitting}
     />
   );
 };
 
-export default SetupProfileDialogProvider;
+export default CreateProjectDialogProvider;
