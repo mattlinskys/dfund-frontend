@@ -19,6 +19,7 @@ import { IconButton, Textarea, Button } from "@chakra-ui/react";
 import { Formik, Form, Field, FieldProps } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
 import * as Yup from "yup";
+import SlugInputField from "components/project/SlugInputField";
 
 interface EditProjectFormValues {
   slug: string;
@@ -37,26 +38,28 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
   defaultValues,
   onSubmit,
 }) => {
-  // TODO: SlugInput (Check uniqueness)
   const { formatMessage } = useIntl();
   const isNew = !defaultValues;
 
   return (
     <Formik
-      initialValues={
-        defaultValues || {
+      initialValues={{
+        ...(defaultValues || {
           slug: "",
           name: "",
           avatarUri: "",
           bannerUri: "",
           description: "",
-        }
-      }
+        }),
+        isSlugUnique: true,
+      }}
       onSubmit={async (values) => {
         await onSubmit(values);
       }}
       validationSchema={Yup.object().shape({
-        slug: Yup.string().required("required"),
+        slug: Yup.string()
+          .required("required")
+          .test("is-unique", "busy", (_, ctx) => ctx.parent.isSlugUnique),
         name: Yup.string().required("required"),
       })}
     >
@@ -64,7 +67,7 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
         <Form noValidate>
           <VStack spacing={4}>
             <Field name="slug">
-              {({ field, meta }: FieldProps) => (
+              {({ meta }: FieldProps) => (
                 <FormControl
                   id="slug"
                   isRequired
@@ -73,7 +76,12 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
                   <FormLabel>
                     <FormattedMessage id="common.slug" />
                   </FormLabel>
-                  <Input autoFocus={isNew} isDisabled={!isNew} {...field} />
+                  <SlugInputField
+                    name="slug"
+                    currentSlug={defaultValues?.slug}
+                    autoFocus={isNew}
+                    isDisabled={!isNew}
+                  />
                   <FormErrorMessage>
                     {meta.error &&
                       formatMessage({
@@ -94,7 +102,7 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
                   <FormLabel>
                     <FormattedMessage id="common.name" />
                   </FormLabel>
-                  <Input autoFocus {...field} />
+                  <Input {...field} />
                   <FormErrorMessage>
                     {meta.error &&
                       formatMessage({

@@ -16,6 +16,7 @@
 
   "validation.name:required": "Name is required",
   "validation.slug:required": "Slug is required",
+  "validation.slug:busy": "Slug is alread taken",
 
   "wallet.title": "Wallet",
 
