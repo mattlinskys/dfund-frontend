@@ -14,7 +14,7 @@ const Project: React.FC = () => {
   const isBannerVisible = !project || !!project.bannerUri;
   const navigate = useNavigate();
   const toast = useToast();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
 
   const providerValue = useMemo(
     () =>
@@ -28,7 +28,7 @@ const Project: React.FC = () => {
     if (notFound) {
       navigate(HOME_PATH, { replace: true });
       toast({
-        title: intl.formatMessage({ id: "erros.projectNotFound" }),
+        title: formatMessage({ id: "erros.projectNotFound" }),
         status: "error",
         duration: 3000,
         isClosable: true,

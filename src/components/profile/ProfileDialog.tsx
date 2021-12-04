@@ -18,6 +18,7 @@ export interface ProfileDialogProps {
   isOpen: boolean;
   profile?: Profile;
   onLogOut: () => void;
+  onEdit: () => void;
   onClose: () => void;
 }
 
@@ -25,6 +26,7 @@ const ProfileDialog: React.FC<ProfileDialogProps> = ({
   isOpen,
   profile,
   onLogOut,
+  onEdit,
   onClose,
 }) => (
   <Modal isOpen={isOpen} onClose={onClose}>
@@ -46,7 +48,7 @@ const ProfileDialog: React.FC<ProfileDialogProps> = ({
         <Button onClick={onLogOut}>
           <FormattedMessage id="common.logOut" />
         </Button>
-        <Button ml={2} onClick={onLogOut}>
+        <Button ml={2} onClick={onEdit}>
           <FormattedMessage id="common.edit" />
         </Button>
       </ModalFooter>

@@ -27,7 +27,7 @@ interface EditProfileFormValues {
 }
 
 export interface EditProfileFormProps {
-  defaultValues?: EditProfileFormValues;
+  defaultValues?: Partial<EditProfileFormValues>;
   onSubmit: (values: EditProfileFormValues) => Promise<void>;
   // isSubmitting?: boolean;
 }
@@ -41,9 +41,11 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
 
   return (
     <Formik
-      initialValues={
-        defaultValues || { name: "", avatarUri: "", description: "" }
-      }
+      initialValues={{
+        name: defaultValues?.name ?? "",
+        avatarUri: defaultValues?.avatarUri ?? "",
+        description: defaultValues?.description ?? "",
+      }}
       onSubmit={async (values) => {
         await onSubmit(values);
       }}

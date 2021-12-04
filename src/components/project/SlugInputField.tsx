@@ -18,25 +18,29 @@ import { factory } from "app/abis";
 import { stringToBytes32 } from "utils/ethersUtils";
 import { constants } from "ethers";
 import { CheckIcon } from "@chakra-ui/icons";
+import { Tooltip } from "@chakra-ui/tooltip";
+import { FormattedMessage } from "react-intl";
 
 export interface SlugInputFieldProps extends InputProps {
   name: string;
+  uniqueFieldName: string;
   currentSlug?: string;
 }
 
 const SlugInputField: React.FC<SlugInputFieldProps> = ({
   name,
+  uniqueFieldName,
   currentSlug,
   ...rest
 }) => {
   const [{ value, onBlur, ...field }] = useField<string>(name);
-  const [, , { setValue: setUniqueValue }] = useField<boolean>("isSlugUnique");
+  const [, , { setValue: setUniqueValue }] = useField<boolean>(uniqueFieldName);
   const timeoutRef = useRef<ReturnType<Window["setTimeout"]>>(0);
   const [valueToCheck, setValueToCheck] = useState("");
-  const checkValue = valueToCheck.trim() && valueToCheck !== currentSlug;
+  const shouldCheckValue = valueToCheck.trim() && valueToCheck !== currentSlug;
 
   const res = useContractCall(
-    checkValue && {
+    shouldCheckValue && {
       abi: factory,
       method: "projects",
       address: process.env.REACT_APP_FACTORY_ADDRESS,
@@ -52,7 +56,7 @@ const SlugInputField: React.FC<SlugInputFieldProps> = ({
       } else {
         status = "busy";
       }
-    } else if (checkValue) {
+    } else if (shouldCheckValue) {
       status = "loading";
     }
 
@@ -93,7 +97,13 @@ const SlugInputField: React.FC<SlugInputFieldProps> = ({
         />
       )}
       {status === "unique" && (
-        <InputRightElement children={<CheckIcon color="green" />} />
+        <Tooltip
+          label={<FormattedMessage id="common.slug:free" />}
+          placement="top"
+          hasArrow
+        >
+          <InputRightElement children={<CheckIcon color="green" />} />
+        </Tooltip>
       )}
     </InputGroup>
   );

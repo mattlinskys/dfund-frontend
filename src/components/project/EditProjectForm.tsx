@@ -24,8 +24,8 @@ import SlugInputField from "components/project/SlugInputField";
 interface EditProjectFormValues {
   slug: string;
   name: string;
-  bannerUri: string;
   avatarUri: string;
+  bannerUri: string;
   description: string;
 }
 
@@ -78,6 +78,7 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
                   </FormLabel>
                   <SlugInputField
                     name="slug"
+                    uniqueFieldName="isSlugUnique"
                     currentSlug={defaultValues?.slug}
                     autoFocus={isNew}
                     isDisabled={!isNew}
@@ -116,7 +117,7 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
             <Field name="avatarUri">
               {({ field, meta }: FieldProps) => (
                 <FormControl
-                  id="avatarUrl"
+                  id="avatarUro"
                   isInvalid={!!(meta.error && meta.touched)}
                 >
                   <FormLabel display="flex" alignItems="center">
@@ -148,6 +149,21 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
               )}
             </Field>
 
+            <Field name="bannerUri">
+              {({ field, meta }: FieldProps) => (
+                <FormControl
+                  id="bannerUri"
+                  isInvalid={!!(meta.error && meta.touched)}
+                >
+                  <FormLabel>
+                    <FormattedMessage id="common.bannerUri" />
+                  </FormLabel>
+
+                  <Input {...field} />
+                </FormControl>
+              )}
+            </Field>
+
             <Field name="description">
               {({ field, meta }: FieldProps) => (
                 <FormControl
@@ -161,7 +177,7 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
                   <Textarea
                     {...field}
                     placeholder={formatMessage({
-                      id: "profile.edit.form.description.placeholder",
+                      id: "project.edit.form.description.placeholder",
                     })}
                   />
                 </FormControl>

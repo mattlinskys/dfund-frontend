@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, Center } from "@chakra-ui/react";
 import SidebarFooter from "components/base/Sidebar/SidebarFooter";
+import SidebarUserMenu from "components/base/Sidebar/SidebarUserMenu";
+import { Box, Center } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { HOME_PATH } from "constants/routes";
 import Logo from "components/base/Logo";
@@ -18,13 +19,15 @@ const Sidebar: React.FC = () => {
       display={{ base: "none", md: "flex" }}
       flexDir="column"
     >
-      <Center my="6">
+      <Center my="8">
         <Link to={HOME_PATH}>
           <Logo />
         </Link>
       </Center>
 
-      <Box as="nav">Nav</Box>
+      <SidebarUserMenu />
+
+      <Box as="nav"></Box>
 
       <SidebarFooter />
     </Box>

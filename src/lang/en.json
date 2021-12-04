@@ -8,26 +8,34 @@
   "common.edit": "Edit",
   "common.name": "Name",
   "common.slug": "Slug",
+  "common.slug:free": "Slug is not taken",
   "common.avatarUrl": "Avatar URL",
+  "common.bannerUri": "Banner URL",
   "common.description": "Description",
 
   "erros.default": "Something went wrong, please try again",
   "erros.projectNotFound": "Project not found",
+  "errors.wallet.noProvider": "Cound't find any wallet, please install browser wallet like MetaMask or TrustWallet",
 
   "validation.name:required": "Name is required",
   "validation.slug:required": "Slug is required",
   "validation.slug:busy": "Slug is alread taken",
 
+  "sidebar.setupProfile": "Setup Profile",
+  "sidebar.connectWallet": "Connect Wallet",
+
   "wallet.title": "Wallet",
 
   "profile.title": "Profile",
   "profile.setup.title": "Setup profile",
+  "profile.edit.title": "Edit profile",
 
   "profile.edit.form.avatar.popover.title": "Why not file upload?",
   "profile.edit.form.avatar.popover.description": "Storing file on blockchain is not cheap operation so believe us, better go with the URL",
   "profile.edit.form.description.placeholder": "You may want to describe yourself a little bit",
 
   "project.create.title": "Create project",
+  "project.edit.form.description.placeholder": "You may want to describe project a little bit",
 
   "wrongChain.title": "Wrong network",
   "wrongChain.description": "You're connected to the wrong network, use information provided below to connect to the {name} network:",

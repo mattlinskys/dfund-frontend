@@ -1,29 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, VStack } from "@chakra-ui/react";
 import useNavigateHash from "hooks/useNavigateHash";
-import { CREATE_PROJECT_HASH, SETUP_PROFILE_HASH } from "constants/hashes";
+import { CREATE_PROJECT_HASH } from "constants/hashes";
+import ProfileContext from "contexts/ProfileContext";
 
 const SidebarFooter: React.FC = () => {
   const navigateHash = useNavigateHash();
+  const { hasProfile } = useContext(ProfileContext)!;
 
   return (
     <VStack mt="auto" p="4" spacing="2">
-      <Button
-        onClick={() => navigateHash(CREATE_PROJECT_HASH)}
-        w="full"
-        colorScheme="brand"
-        variant="solid"
-      >
-        Create Project
-      </Button>
-      <Button
-        onClick={() => navigateHash(SETUP_PROFILE_HASH)}
-        w="full"
-        colorScheme="brand"
-        variant="solid"
-      >
-        Setup Profile
-      </Button>
+      {hasProfile && (
+        <Button
+          onClick={() => navigateHash(CREATE_PROJECT_HASH)}
+          w="full"
+          colorScheme="brand"
+          variant="solid"
+        >
+          Create Project
+        </Button>
+      )}
     </VStack>
   );
 };

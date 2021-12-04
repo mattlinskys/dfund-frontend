@@ -5,13 +5,12 @@ import type { TransactionStatus } from "@usedapp/core";
 
 const useContractFunctionErrorToast = (state: TransactionStatus) => {
   const toast = useToast();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
 
   useEffect(() => {
     if (state.status === "Exception" || state.status === "Fail") {
       toast({
-        title:
-          state.errorMessage || intl.formatMessage({ id: "erros.default" }),
+        title: state.errorMessage || formatMessage({ id: "erros.default" }),
         status: "error",
         duration: 7500,
         isClosable: true,
