@@ -23,7 +23,7 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
   onClose,
   onSubmit,
 }) => (
-  <Modal isOpen={isOpen} onClose={onClose}>
+  <Modal isOpen={isOpen} onClose={onClose} size="3xl">
     <ModalOverlay />
     <ModalContent>
       <ModalHeader>

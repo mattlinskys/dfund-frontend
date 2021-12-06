@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import messagesEn from "lang/en.json";
 import { HOME_PATH, PROJECT_PATH } from "constants/routes";
+import Navbar from "components/base/Navbar";
 import Sidebar from "components/base/Sidebar";
 import Main from "components/base/Main";
 
@@ -27,6 +28,7 @@ const App = () => (
       <DAppProvider config={config}>
         <ChakraProvider theme={theme}>
           <ProfileProvider>
+            <Navbar />
             <Sidebar />
 
             <Main>

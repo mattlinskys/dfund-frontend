@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/form-control";
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/input";
-import { Box, VStack } from "@chakra-ui/layout";
+import { Box, SimpleGrid, VStack } from "@chakra-ui/layout";
 import {
   Popover,
   PopoverTrigger,
@@ -66,53 +66,55 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
       {({ isSubmitting }) => (
         <Form noValidate>
           <VStack spacing={4}>
-            <Field name="slug">
-              {({ meta }: FieldProps) => (
-                <FormControl
-                  id="slug"
-                  isRequired
-                  isInvalid={!!(meta.error && meta.touched)}
-                >
-                  <FormLabel>
-                    <FormattedMessage id="common.slug" />
-                  </FormLabel>
-                  <SlugInputField
-                    name="slug"
-                    uniqueFieldName="isSlugUnique"
-                    currentSlug={defaultValues?.slug}
-                    autoFocus={isNew}
-                    isDisabled={!isNew}
-                  />
-                  <FormErrorMessage>
-                    {meta.error &&
-                      formatMessage({
-                        id: `validation.slug:${meta.error}`,
-                      })}
-                  </FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+            <SimpleGrid w="full" columns={{ base: 1, md: 2 }} spacing={4}>
+              <Field name="slug">
+                {({ meta }: FieldProps) => (
+                  <FormControl
+                    id="slug"
+                    isRequired
+                    isInvalid={!!(meta.error && meta.touched)}
+                  >
+                    <FormLabel>
+                      <FormattedMessage id="common.slug" />
+                    </FormLabel>
+                    <SlugInputField
+                      name="slug"
+                      uniqueFieldName="isSlugUnique"
+                      currentSlug={defaultValues?.slug}
+                      autoFocus={isNew}
+                      isDisabled={!isNew}
+                    />
+                    <FormErrorMessage>
+                      {meta.error &&
+                        formatMessage({
+                          id: `validation.slug:${meta.error}`,
+                        })}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
 
-            <Field name="name">
-              {({ field, meta }: FieldProps) => (
-                <FormControl
-                  id="name"
-                  isRequired
-                  isInvalid={!!(meta.error && meta.touched)}
-                >
-                  <FormLabel>
-                    <FormattedMessage id="common.name" />
-                  </FormLabel>
-                  <Input {...field} />
-                  <FormErrorMessage>
-                    {meta.error &&
-                      formatMessage({
-                        id: `validation.name:${meta.error}`,
-                      })}
-                  </FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+              <Field name="name">
+                {({ field, meta }: FieldProps) => (
+                  <FormControl
+                    id="name"
+                    isRequired
+                    isInvalid={!!(meta.error && meta.touched)}
+                  >
+                    <FormLabel>
+                      <FormattedMessage id="common.name" />
+                    </FormLabel>
+                    <Input {...field} />
+                    <FormErrorMessage>
+                      {meta.error &&
+                        formatMessage({
+                          id: `validation.name:${meta.error}`,
+                        })}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+            </SimpleGrid>
 
             <Field name="avatarUri">
               {({ field, meta }: FieldProps) => (

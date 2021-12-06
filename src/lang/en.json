@@ -9,6 +9,7 @@
   "common.name": "Name",
   "common.slug": "Slug",
   "common.slug:free": "Slug is not taken",
+  "common.avatar": "Avatar",
   "common.avatarUrl": "Avatar URL",
   "common.bannerUri": "Banner URL",
   "common.description": "Description",

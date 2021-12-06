@@ -5,7 +5,7 @@ import useHashDisclosure from "hooks/useHashDisclosure";
 import CreateProjectDialog, {
   CreateProjectDialogProps,
 } from "components/project/CreateProjectDialog";
-import { Contract } from "ethers";
+import { Contract, utils } from "ethers";
 import { factory } from "app/abis";
 import { useContractFunction } from "@usedapp/core";
 import { bytes32ToString, stringToBytes32 } from "utils/ethersUtils";
@@ -33,7 +33,16 @@ const CreateProjectDialogProvider: React.FC = () => {
   const handleSubmit = useCallback<CreateProjectDialogProps["onSubmit"]>(
     async (values) => {
       try {
-        await send(stringToBytes32(values.slug), stringToBytes32(values.name));
+        const customKeys = (
+          ["avatarUri", "bannerUri", "description"] as (keyof typeof values)[]
+        ).filter((key) => !!values[key].trim());
+
+        await send(
+          stringToBytes32(values.slug),
+          stringToBytes32(values.name),
+          customKeys.map((key) => utils.keccak256(utils.toUtf8Bytes(key))),
+          customKeys.map((key) => values[key])
+        );
       } catch (err) {
         console.error(err);
       }

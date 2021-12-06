@@ -19,7 +19,7 @@ const Sidebar: React.FC = () => {
       display={{ base: "none", md: "flex" }}
       flexDir="column"
     >
-      <Center my="8">
+      <Center my="8" color="gray.700">
         <Link to={HOME_PATH}>
           <Logo />
         </Link>

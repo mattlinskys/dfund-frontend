@@ -16,26 +16,36 @@ const SidebarUserMenu: React.FC = () => {
       {active ? (
         isLoaded ? (
           hasProfile ? (
-            <HStack
-              as="button"
-              w="full"
-              h={12}
-              px={2}
-              spacing={2.5}
-              rounded="md"
-              transition="background-color 150ms ease-out"
-              _hover={{ bg: "gray.100" }}
-              onClick={() => navigateHash(PROFILE_HASH)}
-            >
-              <Avatar src={profile!.avatarUri} name={profile!.name} size="sm" />
+            profile ? (
+              <HStack
+                as="button"
+                w="full"
+                h={12}
+                px={2}
+                spacing={2.5}
+                rounded="md"
+                transition="background-color 150ms ease-out"
+                _hover={{ bg: "gray.100" }}
+                onClick={() => navigateHash(PROFILE_HASH)}
+              >
+                <Avatar
+                  src={profile!.avatarUri}
+                  name={profile!.name}
+                  size="sm"
+                />
 
-              <Box textAlign="left" overflow="hidden">
-                <Text fontWeight="medium">{profile!.name}</Text>
-                <Text fontSize="sm" isTruncated>
-                  {account}
-                </Text>
-              </Box>
-            </HStack>
+                <Box textAlign="left" overflow="hidden">
+                  <Text fontWeight="medium">{profile!.name}</Text>
+                  <Text fontSize="sm" isTruncated>
+                    {account}
+                  </Text>
+                </Box>
+              </HStack>
+            ) : (
+              <Skeleton>
+                <Box h={12} />
+              </Skeleton>
+            )
           ) : (
             <Button
               w="full"

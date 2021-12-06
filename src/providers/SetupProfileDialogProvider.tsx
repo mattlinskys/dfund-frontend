@@ -5,7 +5,7 @@ import useHashDisclosure from "hooks/useHashDisclosure";
 import SetupProfileDialog, {
   SetupProfileDialogProps,
 } from "components/profile/SetupProfileDialog";
-import { Contract } from "ethers";
+import { Contract, utils } from "ethers";
 import { factory } from "app/abis";
 import { useContractFunction } from "@usedapp/core";
 import { stringToBytes32 } from "utils/ethersUtils";
@@ -32,7 +32,15 @@ const SetupProfileDialogProvider: React.FC = () => {
   const handleSubmit = useCallback<SetupProfileDialogProps["onSubmit"]>(
     async (values) => {
       try {
-        await send(stringToBytes32(values.name));
+        const customKeys = (
+          ["avatarUri", "description"] as (keyof typeof values)[]
+        ).filter((key) => !!values[key].trim());
+
+        await send(
+          stringToBytes32(values.name),
+          customKeys.map((key) => utils.keccak256(utils.toUtf8Bytes(key))),
+          customKeys.map((key) => values[key])
+        );
       } catch (err) {
         console.error(err);
       }

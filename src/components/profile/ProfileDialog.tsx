@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/modal";
 import { Avatar } from "@chakra-ui/avatar";
 import { Button } from "@chakra-ui/button";
-import { HStack, Text } from "@chakra-ui/layout";
+import { Box, SimpleGrid, Text, VStack } from "@chakra-ui/layout";
 import { FormattedMessage } from "react-intl";
 import { Profile } from "types/profile";
 
@@ -38,10 +38,29 @@ const ProfileDialog: React.FC<ProfileDialogProps> = ({
       <ModalCloseButton />
 
       <ModalBody>
-        <HStack spacing={3}>
-          <Avatar name={profile?.name} src={profile?.avatarUri} />
-          <Text>{profile?.name}</Text>
-        </HStack>
+        <VStack spacing={4}>
+          <SimpleGrid w="full" columns={2} spacing={4}>
+            <Box>
+              <Text fontSize="sm" fontWeight="medium" mb="1">
+                <FormattedMessage id="common.avatar" />
+              </Text>
+              <Avatar name={profile?.name} src={profile?.avatarUri} />
+            </Box>
+            <Box>
+              <Text fontSize="sm" fontWeight="medium" mb="1">
+                <FormattedMessage id="common.name" />
+              </Text>
+              <Text>{profile?.name}</Text>
+            </Box>
+          </SimpleGrid>
+
+          <Box w="full">
+            <Text fontSize="sm" fontWeight="medium" mb="1">
+              <FormattedMessage id="common.description" />
+            </Text>
+            <Text>{profile?.description}</Text>
+          </Box>
+        </VStack>
       </ModalBody>
 
       <ModalFooter>
