@@ -31,14 +31,20 @@ const useProject = (
       getCustomKeyCallArgs(address, "description"),
       getCustomKeyCallArgs(address, "avatarUri"),
       getCustomKeyCallArgs(address, "bannerUri"),
+      {
+        abi: project,
+        address,
+        method: "followerCount",
+        args: [],
+      },
     ],
     [address]
   );
 
-  const [name, description, avatarUri, bannerUri] = (
+  const [name, description, avatarUri, bannerUri, followerCount] = (
     (useContractCalls(
       address && address !== constants.AddressZero ? contractCalls : []
-    ) ?? []) as (undefined[] | string[])[]
+    ) ?? []) as (undefined[] | any[])[]
   ).flat();
   const notFound = address === constants.AddressZero;
 
@@ -52,6 +58,7 @@ const useProject = (
             description,
             avatarUri,
             bannerUri,
+            followerCount,
           }
         : undefined,
     notFound,

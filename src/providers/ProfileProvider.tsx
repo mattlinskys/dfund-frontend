@@ -58,9 +58,10 @@ const ProfileProvider: React.FC = ({ children }) => {
         isAuthenticated: !!profile,
         hasProfile,
         isLoaded,
+        contractAddress,
         setContractAddress,
       } as ProfileContextValue),
-    [profile, hasProfile, isLoaded]
+    [profile, hasProfile, isLoaded, contractAddress]
   );
 
   return (

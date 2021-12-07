@@ -8,6 +8,6 @@ export const getCustomKeyCallArgs = (
 ): ContractCall => ({
   abi: customizable,
   address,
-  method: "customKeys",
+  method: "getCustomKey",
   args: [utils.keccak256(utils.toUtf8Bytes(key))],
 });

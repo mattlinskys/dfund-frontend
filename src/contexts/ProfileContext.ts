@@ -6,6 +6,7 @@ export interface ProfileContextValue {
   hasProfile: boolean;
   isLoaded: boolean;
   isAuthenticated: boolean;
+  contractAddress?: string;
   setContractAddress: (address: string) => void;
 }
 

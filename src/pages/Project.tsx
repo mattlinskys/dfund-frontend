@@ -7,6 +7,7 @@ import Banner from "components/project/Banner";
 import { Box, SkeletonCircle, Image, useToast } from "@chakra-ui/react";
 import { HOME_PATH } from "constants/routes";
 import { useIntl } from "react-intl";
+import FollowProjectButton from "components/project/FollowProjectButton";
 
 const Project: React.FC = () => {
   const { slug } = useParams() as { slug: string };
@@ -73,6 +74,10 @@ const Project: React.FC = () => {
         Project: {project?.slug} <br />
         Name: {project?.name} <br />
         Description: {project?.description || "-"} <br />
+        Followers count: {project?.followerCount.toString()}
+        {project && (
+          <FollowProjectButton address={project.address} slug={project.slug} />
+        )}
         <PostList slug={slug} />
       </Box>
     </ProjectContext.Provider>

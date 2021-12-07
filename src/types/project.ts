@@ -1,3 +1,5 @@
+import type { BigNumber } from "ethers";
+
 export interface Project {
   address: string;
   slug: string;
@@ -5,4 +7,5 @@ export interface Project {
   description?: string;
   avatarUri?: string;
   bannerUri?: string;
+  followerCount: BigNumber;
 }
