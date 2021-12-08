@@ -1,4 +1,9 @@
-import { useContractCall, useContractCalls, useEthers } from "@usedapp/core";
+import {
+  useContractCall,
+  useContractCalls,
+  useEthers,
+  useTokenBalance,
+} from "@usedapp/core";
 import { factory, project } from "app/abis";
 import { constants } from "ethers";
 import { useMemo } from "react";
@@ -40,6 +45,7 @@ const useProject = (
     ],
     [address]
   );
+  const balance = useTokenBalance(process.env.REACT_APP_TOKEN_ADDRESS, address);
 
   const [name, description, avatarUri, bannerUri, followerCount] = (
     (useContractCalls(
@@ -53,9 +59,12 @@ const useProject = (
       address && slug && name
         ? {
             address,
+            balance,
             slug,
             name: bytes32ToString(name),
             description,
+            // TODO:
+            tags: [],
             avatarUri,
             bannerUri,
             followerCount,

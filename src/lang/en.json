@@ -13,6 +13,10 @@
   "common.avatarUrl": "Avatar URL",
   "common.bannerUri": "Banner URL",
   "common.description": "Description",
+  "common.tags": "Tags",
+  "common.support": "Support",
+  "common.showMore": "Show more",
+  "common.showLess": "Show less",
 
   "erros.default": "Something went wrong, please try again",
   "erros.projectNotFound": "Project not found",
